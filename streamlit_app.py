@@ -6,16 +6,16 @@ import pickle
 st.title("🫀🩺 Heart Disease Application")
 
 # Load the dataset
-@st.cache  # Cache the dataset to improve performance
+@st.cache_data  # Cache the dataset to improve performance
 def load_data():
-    return pd.read_csv("EDA and ML\HeartDisease.csv")
+    return pd.read_csv("EDA and ML/HeartDisease.csv")
 
 data = load_data()
 
 # Load the trained model
-@st.cache(allow_output_mutation=True)  # Cache the model to prevent reloading
+@st.cache_resource # Cache the model to prevent reloading
 def load_model():
-    with open("EDA and ML\heart_disease_model.pkl", "rb") as file:
+    with open("EDA and ML/heart_disease_model.pkl", "rb") as file:
         return pickle.load(file)
 
 model = load_model()
