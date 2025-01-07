@@ -172,20 +172,64 @@ elif section == "Model":
     
     # Introduction to the Model Section
     st.write("""
-    In this section, we display the performance of the trained **Logistic Regression** model.
-    The model predicts whether a patient has heart disease based on their medical data.
-    Below, you'll find:
-    - The model's accuracy.
-    - A classification report with precision, recall, and F1-score.
-    - A confusion matrix visualization.
+    In this section, you can input your data to predict the likelihood of heart disease using a trained **Logistic Regression** model.
+    Please fill in the following fields with your personal medical data, and the model will predict whether you are likely to have heart disease or not.
     """)
-    
-    # 1. Model Accuracy
+
+    # Input Fields for User Data
+    with st.expander("Enter Your Data for Prediction", expanded=True):
+        st.write("Please enter the required information below:")
+
+        # Collecting user inputs
+        age = st.number_input("Age", min_value=1, max_value=120, step=1)
+        sex = st.selectbox("Sex", options=["Male", "Female"])
+        chest_pain_type = st.selectbox("Chest Pain Type", options=["Typical angina", "Atypical angina", "Non-anginal pain", "Asymptomatic"])
+        resting_blood_pressure = st.number_input("Resting Blood Pressure (mm Hg)", min_value=1, max_value=300, step=1)
+        cholestoral = st.number_input("Cholesterol (mg/dl)", min_value=1, max_value=600, step=1)
+        fasting_blood_sugar = st.selectbox("Fasting Blood Sugar", options=["Lower than 120 mg/ml", "Greater than 120 mg/ml"])
+        rest_ecg = st.selectbox("Resting Electrocardiographic Results", options=["Normal", "ST-T wave abnormality", "Left ventricular hypertrophy"])
+        max_heart_rate = st.number_input("Max Heart Rate Achieved", min_value=1, max_value=250, step=1)
+        exercise_induced_angina = st.selectbox("Exercise Induced Angina", options=["Yes", "No"])
+        oldpeak = st.number_input("Oldpeak (Depression Induced by Exercise Relative to Rest)", min_value=0.0, max_value=6.0, step=0.1)
+        slope = st.selectbox("Slope of the Peak Exercise ST Segment", options=["Up sloping", "Down sloping", "Flat"])
+        vessels_colored_by_flourosopy = st.selectbox("Number of Major Vessels Colored by Fluoroscopy", options=["Zero", "One", "Two", "Three", "Four"])
+        thalassemia = st.selectbox("Thalassemia", options=["Reversable Defect", "Fixed Defect", "Normal", "No"])
+
+        # Prepare the input data for prediction
+        input_data = {
+            'age': age,
+            'sex': 1 if sex == "Male" else 0,  # Encoding sex
+            'chest_pain_type': chest_pain_type,
+            'resting_blood_pressure': resting_blood_pressure,
+            'cholestoral': cholestoral,
+            'fasting_blood_sugar': 1 if fasting_blood_sugar == "Greater than 120 mg/ml" else 0,  # Encoding fasting blood sugar
+            'rest_ecg': rest_ecg,
+            'max_heart_rate': max_heart_rate,
+            'exercise_induced_angina': 1 if exercise_induced_angina == "Yes" else 0,  # Encoding exercise induced angina
+            'oldpeak': oldpeak,
+            'slope': slope,
+            'vessels_colored_by_flourosopy': vessels_colored_by_flourosopy,
+            'thalassemia': thalassemia
+        }
+
+        # Convert input data to DataFrame
+        input_df = pd.DataFrame([input_data])
+
+        # Predict using the model
+        if st.button("Predict Heart Disease"):
+            prediction = model.predict(input_df)
+            st.write(f"Prediction: {'Heart Disease' if prediction[0] == 1 else 'No Heart Disease'}")
+            st.write("Here’s a summary of your data:")
+            st.write(input_df)
+
+    # Display Model Accuracy and Other Metrics
+    st.write("""
+    Below, you'll find the performance of the trained model, including accuracy and evaluation metrics.
+    """)
     with st.expander("Model Accuracy", expanded=True):
         accuracy = 0.81  # Precomputed accuracy
         st.write(f"The accuracy of the Logistic Regression model on the test set is **{accuracy:.2f}**.")
     
-    # 2. Classification Report
     with st.expander("Classification Report", expanded=False):
         st.write("""
         The classification report provides precision, recall, and F1-score metrics for both classes:
@@ -222,5 +266,6 @@ weighted avg       0.82      0.81      0.81       205
         plt.xlabel("Predicted")
         plt.ylabel("Actual")
         st.pyplot(fig)
+
 
 
