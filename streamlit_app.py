@@ -280,20 +280,19 @@ weighted avg       0.82      0.81      0.81       205
 elif section == "Conclusion":
     st.header("Conclusion")
 
-
-    st.write(""" This project involves a machine learning model designed to predict the likelihood of heart disease based on various health indicators. Here are the key points:
+    st.write("""
+        This project involves a machine learning model designed to predict the likelihood of heart disease based on various health indicators. Here are the key points:
 
         - **Accuracy**: The model achieves an accuracy of 81%, meaning it correctly predicts the presence or absence of heart disease in 81% of cases.
-        
+
         - **Performance**: The model performs well in identifying both patients with and without heart disease. 
             - For patients **without heart disease (class 0)**, it correctly predicts 75% of the time.
             - For patients **with heart disease (class 1)**, it predicts correctly 88% of the time.
-        
+
         - **Real-World Use**: This model can be useful in a healthcare setting to assess the risk of heart disease based on common health factors, helping doctors take preventive action before a problem develops.
-        
+
         - **Next Steps**: The model could be improved by using more data and advanced techniques to increase accuracy even further. Future work might also include making the model available for easy use by medical professionals and individuals alike.
     """)
-
 
 
 
