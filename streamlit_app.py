@@ -180,14 +180,7 @@ elif section == "Model":
     with st.expander("Enter Your Data for Prediction", expanded=True):
         st.write("Please enter the required information below:")
 
-   one_hot_columns = {'sex': ['Male', 'Female'],
-    'chest_pain_type': ['Typical angina', 'Atypical angina', 'Non-anginal pain', 'Asymptomatic'],
-    'fasting_blood_sugar': ['Lower than 120 mg/ml', 'Greater than 120 mg/ml'],
-    'rest_ecg': ['Normal', 'ST-T wave abnormality', 'Left ventricular hypertrophy'],
-    'exercise_induced_angina': ['Yes', 'No'],
-    'slope': ['Up sloping', 'Down sloping', 'Flat'],
-    'vessels_colored_by_flourosopy': ['Zero', 'One', 'Two', 'Three', 'Four'],
-    'thalassemia': ['Reversable Defect', 'Fixed Defect', 'Normal', 'No']}
+   one_hot_columns = {'sex': ['Male', 'Female'], 'chest_pain_type': ['Typical angina', 'Atypical angina', 'Non-anginal pain', 'Asymptomatic'], 'fasting_blood_sugar': ['Lower than 120 mg/ml', 'Greater than 120 mg/ml'], 'rest_ecg': ['Normal', 'ST-T wave abnormality', 'Left ventricular hypertrophy'],'exercise_induced_angina': ['Yes', 'No'],'slope': ['Up sloping', 'Down sloping', 'Flat'], 'vessels_colored_by_flourosopy': ['Zero', 'One', 'Two', 'Three', 'Four'], 'thalassemia': ['Reversable Defect', 'Fixed Defect', 'Normal', 'No']}
 
         # Collecting user inputs
         age = st.number_input("Age", min_value=1, max_value=120, step=1)
