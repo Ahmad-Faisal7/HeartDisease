@@ -180,6 +180,17 @@ elif section == "Model":
     with st.expander("Enter Your Data for Prediction", expanded=True):
         st.write("Please enter the required information below:")
 
+   one_hot_columns = {
+    'sex': ['Male', 'Female'],
+    'chest_pain_type': ['Typical angina', 'Atypical angina', 'Non-anginal pain', 'Asymptomatic'],
+    'fasting_blood_sugar': ['Lower than 120 mg/ml', 'Greater than 120 mg/ml'],
+    'rest_ecg': ['Normal', 'ST-T wave abnormality', 'Left ventricular hypertrophy'],
+    'exercise_induced_angina': ['Yes', 'No'],
+    'slope': ['Up sloping', 'Down sloping', 'Flat'],
+    'vessels_colored_by_flourosopy': ['Zero', 'One', 'Two', 'Three', 'Four'],
+    'thalassemia': ['Reversable Defect', 'Fixed Defect', 'Normal', 'No']
+   }
+
         # Collecting user inputs
         age = st.number_input("Age", min_value=1, max_value=120, step=1)
         sex = st.selectbox("Sex", options=["Male", "Female"])
@@ -214,6 +225,13 @@ elif section == "Model":
 
         # Convert input data to DataFrame
         input_df = pd.DataFrame([input_data])
+        # Apply one-hot encoding to the categorical variables
+        for column, categories in one_hot_columns.items():
+            # Apply one-hot encoding for each categorical column
+            dummies = pd.get_dummies(input_df[column], prefix=column)
+            input_df = pd.concat([input_df, dummies], axis=1)
+            input_df.drop(column, axis=1, inplace=True)
+
 
         # Predict using the model
         if st.button("Predict Heart Disease"):
