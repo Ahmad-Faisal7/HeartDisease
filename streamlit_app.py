@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sklearn
 
 
 # Streamlit Application Title
@@ -166,5 +167,60 @@ elif section == "EDA":
         st.pyplot(fig)
 
 
+elif section == "Model":
+    st.header("Machine Learning Model: Logistic Regression")
+    
+    # Introduction to the Model Section
+    st.write("""
+    In this section, we display the performance of the trained **Logistic Regression** model.
+    The model predicts whether a patient has heart disease based on their medical data.
+    Below, you'll find:
+    - The model's accuracy.
+    - A classification report with precision, recall, and F1-score.
+    - A confusion matrix visualization.
+    """)
+    
+    # 1. Model Accuracy
+    with st.expander("Model Accuracy", expanded=True):
+        accuracy = 0.81  # Precomputed accuracy
+        st.write(f"The accuracy of the Logistic Regression model on the test set is **{accuracy:.2f}**.")
+    
+    # 2. Classification Report
+    with st.expander("Classification Report", expanded=False):
+        st.write("""
+        The classification report provides precision, recall, and F1-score metrics for both classes:
+        - **Class 0 (No Disease)**: Patients without heart disease.
+        - **Class 1 (Disease)**: Patients with heart disease.
+        """)
+        classification_report_text = """
+              precision    recall  f1-score   support
+
+           0       0.86      0.75      0.80       102
+           1       0.78      0.88      0.83       103
+
+    accuracy                           0.81       205
+   macro avg       0.82      0.81      0.81       205
+weighted avg       0.82      0.81      0.81       205
+        """
+        st.text(classification_report_text)
+    
+    # 3. Confusion Matrix
+    with st.expander("Confusion Matrix", expanded=False):
+        st.write("""
+        The confusion matrix provides a breakdown of predictions:
+        - **True Positives (TP)**: Correctly predicted as having heart disease.
+        - **True Negatives (TN)**: Correctly predicted as not having heart disease.
+        - **False Positives (FP)**: Incorrectly predicted as having heart disease.
+        - **False Negatives (FN)**: Incorrectly predicted as not having heart disease.
+        """)
+        
+        # Confusion Matrix Visualization
+        conf_matrix = [[77, 25], [12, 91]]  # Example values from your results
+        fig, ax = plt.subplots()
+        sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=["No Disease", "Disease"], yticklabels=["No Disease", "Disease"])
+        plt.title("Confusion Matrix")
+        plt.xlabel("Predicted")
+        plt.ylabel("Actual")
+        st.pyplot(fig)
 
 
