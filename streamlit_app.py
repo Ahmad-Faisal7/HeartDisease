@@ -189,7 +189,7 @@ elif section == "Model":
     'slope': ['Up sloping', 'Down sloping', 'Flat'],
     'vessels_colored_by_flourosopy': ['Zero', 'One', 'Two', 'Three', 'Four'],
     'thalassemia': ['Reversable Defect', 'Fixed Defect', 'Normal', 'No']
-   }
+ }
 
         # Collecting user inputs
         age = st.number_input("Age", min_value=1, max_value=120, step=1)
