@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 # Streamlit Application Title
 st.title("🫀🩺 Heart Disease Application")
